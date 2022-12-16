@@ -1,0 +1,7 @@
+# directories
+.vscode
+obj
+
+# files
+svc.exe
+winkey.exe
