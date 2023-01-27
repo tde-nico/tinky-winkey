@@ -1,13 +1,13 @@
 SERVICE			= svc.exe
-KEYLOGGER		= keylogger.exe
+KEYLOGGER		= winkey.exe
 
 CC				= cl
 CFLAGS			= /Wall /WX
 LINK			= link
 RM				= del
 
-SRC_SERVICE		= .\service\srcs\main.c
-# SRC_KEYLOGGER	=
+SRC_SERVICE		= .\service\srcs\main.c .\service\srcs\service.c
+SRC_KEYLOGGER	= .\keylogger\srcs\main.c
 
 OBJ_SERVICE		= $(SRC_SERVICE:.c=.obj)
 OBJ_KEYLOGGER	= $(SRC_KEYLOGGER:.c=.obj)

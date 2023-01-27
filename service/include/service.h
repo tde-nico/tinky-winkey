@@ -9,10 +9,13 @@
 
 # include <stdio.h>
 # include <string.h>
-# include <Windows.h>
+# include <windows.h>
+# include <tlhelp32.h>
 
 # define NAME "tinky"
 # define KEYLOGGER "winkey.exe"
+
+int	dispatch_service(void);
 
 
 #endif
