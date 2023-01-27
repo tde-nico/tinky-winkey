@@ -10,7 +10,6 @@
 # include <stdio.h>
 # include <string.h>
 # include <Windows.h>
-# include <tlhelp32.h>
 
 # define NAME "tinky"
 # define KEYLOGGER "winkey.exe"
