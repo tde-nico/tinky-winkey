@@ -6,8 +6,8 @@ CFLAGS			= /Wall /WX
 LINK			= link
 RM				= del
 
-SRC_SERVICE		=
-SRC_KEYLOGGER	=
+SRC_SERVICE		= .\service\srcs\main.c
+# SRC_KEYLOGGER	=
 
 OBJ_SERVICE		= $(SRC_SERVICE:.c=.obj)
 OBJ_KEYLOGGER	= $(SRC_KEYLOGGER:.c=.obj)
@@ -16,13 +16,13 @@ OBJ_KEYLOGGER	= $(SRC_KEYLOGGER:.c=.obj)
 all: $(SERVICE) $(KEYLOGGER)
 
 $(SERVICE): $(OBJ_SERVICE)
-	$(LINK) /nologo $< /OUT:$@
+	$(LINK) /nologo $(OBJ_SERVICE) /OUT:$@
 
 $(KEYLOGGER): $(OBJ_KEYLOGGER)
-	$(LINK) /nologo $< /OUT:$@
+	$(LINK) /nologo $(OBJ_KEYLOGGER) /OUT:$@
 
-%.c: %.obj:
-	$(CC) $(CFLAGS) /nologo /I./keylogger/include /I./service/include /c $< /Fo: $@
+.c.obj:
+	$(CC) $(CFLAGS) /nologo /I.\keylogger\include /I.\service\include /c $< /Fo: $@
 
 clean:
 	$(RM) $(OBJ_SERVICE) $(OBJ_KEYLOGGER)
