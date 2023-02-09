@@ -86,20 +86,36 @@ int	delete(SC_HANDLE manager)
 	return (0);
 }
 
+int	update(SC_HANDLE manager)
+{
+	SC_HANDLE			service;
+	SERVICE_DESCRIPTION	desc;
+
+	service = OpenService(manager, NAME, SERVICE_ALL_ACCESS);
+	if (!service)
+		return (get_error("Error: OpenService:"));
+	desc.lpDescription = "this is a SAFE service";
+	if (!ChangeServiceConfig2(service, SERVICE_CONFIG_DESCRIPTION, &desc))
+		return (get_error("Error: ChangeServiceConfig2:"));
+	CloseServiceHandle(service);
+	printf("Service {%s} updated successfully\n", NAME);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	int			i;
-	int			(*operations[4])(SC_HANDLE) = { install, start, stop, delete };
-	char		*str_operations[4] = { "install", "start", "stop", "delete" };
+	int			(*operations[5])(SC_HANDLE) = { install, start, stop, delete, update };
+	char		*str_operations[5] = { "install", "start", "stop", "delete", "update" };
 	SC_HANDLE	manager;
 
 	if (argc == 1 && !dispatch_service())
-		return (printf("Usage: svc.exe [instsall | start | stop | delete]\n"));
+		return (printf("Usage: %s [install | start | stop | delete | update]\n", argv[0]));
 	manager = OpenSCManager(0, 0, SC_MANAGER_ALL_ACCESS);
 	if (!manager)
 		return (get_error("Error: OpenSCManager:"));
 	i = -1;
-	while (++i < 4)
+	while (++i < 5)
 	{
 		if (!strcmp(str_operations[i], argv[1]))
 			operations[i](manager);
